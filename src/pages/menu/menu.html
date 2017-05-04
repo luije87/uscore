@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list no-lines>
     <ion-list-header>
       Sports
     </ion-list-header>
@@ -20,9 +20,9 @@
       {{ item.name }}
     </button>
   </ion-list>
-  <ion-list>
+  <ion-list no-lines>
     <ion-list-header>
-      FEature
+      News
     </ion-list-header>
     <button ion-item *ngFor="let item of features" (click)="itemSelected(item)">
       <ion-icon name="{{item.icon}}" item-left></ion-icon>
