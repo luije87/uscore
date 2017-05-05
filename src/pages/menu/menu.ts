@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 @IonicPage({
-  name: 'menu'
+  name : 'menu'
 })
 @Component({
   selector: 'page-menu',
@@ -11,16 +11,16 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 export class Menu {
   
   sports = [
-    { name: 'Baseball', icon: 'ios-baseball-outline', page: 'home' },
-    { name: 'Football', icon: 'ios-american-football-outline', page: 'home' },
-    { name: 'Softball', icon: 'ios-baseball-outline', page: 'home' },
-    { name: 'Soccer', icon: 'ios-football-outline', page: 'home' },
-    { name: 'Tennis', icon: 'ios-tennisball-outline', page: 'home' },
+    { name: 'Baseball', icon: 'ios-baseball-outline', page: 'HomePage' },
+    { name: 'Football', icon: 'ios-american-football-outline', page: 'HomePage' },
+    { name: 'Softball', icon: 'ios-baseball-outline', page: 'HomePage' },
+    { name: 'Soccer', icon: 'ios-football-outline', page: 'HomePage' },
+    { name: 'Tennis', icon: 'ios-tennisball-outline', page: 'HomePage' },
   ];
 
   features = [
-    { name: 'News', icon: 'ios-paper-outline', page: 'news' },
-    { name: 'Trending', icon: 'ios-trending-up-outline', page: 'news' },
+    { name: 'News', icon: 'ios-paper-outline', page: 'News' },
+    { name: 'Trending', icon: 'ios-trending-up-outline', page: 'News' },
   ];
 
   title: any;
@@ -30,7 +30,7 @@ export class Menu {
     this.from = this.params.get('from');
   }
 
-  itemSelected(item) {
+  itemSelected(item) {    
     this.navCtrl.push(item.page);
   }
 

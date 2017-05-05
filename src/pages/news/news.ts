@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 @IonicPage({
-  name : 'news'
+  name : 'News'
 })
 @Component({
   selector: 'page-news',

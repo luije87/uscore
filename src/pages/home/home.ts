@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ViewController } from 'ionic-angular';
 
-
-@IonicPage({
-  name: 'home',
-})
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -22,7 +19,7 @@ export class HomePage {
   }
 
   view(item){
-    this.navCtrl.push('news', { item: item }, { direction: 'forward' });
+    this.navCtrl.push('News', { item: item }, { direction: 'forward' });
   }
   ionViewWillEnter() {
     this.viewCtrl.showBackButton(false);
