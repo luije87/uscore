@@ -15,11 +15,12 @@ export class Menu {
     { name: 'Football', icon: 'ios-american-football-outline', page: 'HomePage' },
     { name: 'Softball', icon: 'ios-baseball-outline', page: 'HomePage' },
     { name: 'Soccer', icon: 'ios-football-outline', page: 'HomePage' },
-    { name: 'Tennis', icon: 'ios-tennisball-outline', page: 'HomePage' },
+    { name: 'Tennis', icon: 'ios-tennisball-outline', page: 'HomePage' },    
   ];
 
   features = [
     { name: 'News', icon: 'ios-paper-outline', page: 'News' },
+    { name: 'Events', icon: 'ios-calendar-outline', page: 'Events' },
     { name: 'Trending', icon: 'ios-trending-up-outline', page: 'News' },
   ];
 

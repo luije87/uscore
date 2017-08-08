@@ -1,32 +1,32 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Menu</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="navigate()">
+    <ion-navbar>
+        <ion-title>Menu</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="navigate()">
         {{title}}
         <ion-icon name="ios-arrow-forward-outline"></ion-icon>
       </button>
-    </ion-buttons>
-  </ion-navbar>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list no-lines>
-    <ion-list-header>
-      Sports
-    </ion-list-header>
-    <button ion-item *ngFor="let item of sports" (click)="itemSelected(item)">
+    <ion-list no-lines>
+        <ion-list-header>
+            Sports
+        </ion-list-header>
+        <button ion-item *ngFor="let item of sports" (click)="itemSelected(item)">
       <ion-icon name="{{item.icon}}" item-left></ion-icon>
       {{ item.name }}
     </button>
-  </ion-list>
-  <ion-list no-lines>
-    <ion-list-header>
-      News
-    </ion-list-header>
-    <button ion-item *ngFor="let item of features" (click)="itemSelected(item)">
+    </ion-list>
+    <ion-list no-lines>
+        <ion-list-header>
+            News
+        </ion-list-header>
+        <button ion-item *ngFor="let item of features" (click)="itemSelected(item)">
       <ion-icon name="{{item.icon}}" item-left></ion-icon>
       {{ item.name }}
     </button>
-  </ion-list>
+    </ion-list>
 </ion-content>
