@@ -12,13 +12,13 @@
     </ion-navbar>
     <ion-toolbar no-border-top>
         <ion-segment [(ngModel)]="appType">
-            <ion-segment-button value="All" (ionSelect)="loadEvents('All')">
+            <ion-segment-button value="All" (ionSelect)="getItems('All')">
                 All
             </ion-segment-button>
-            <ion-segment-button value="Today" (ionSelect)="loadEvents('Today')">
+            <ion-segment-button value="Today" (ionSelect)="getItems('Today')">
                 Today
             </ion-segment-button>
-            <ion-segment-button value="Upcoming" (ionSelect)="loadEvents('Upcoming')">
+            <ion-segment-button value="Upcoming" (ionSelect)="getItems('Upcoming')">
                 Upcoming
             </ion-segment-button>
         </ion-segment>

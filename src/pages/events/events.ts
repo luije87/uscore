@@ -21,6 +21,7 @@ export class Events {
     public data: any;
     appType = 'All';
 
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public eventService: EventService, public loadingController: LoadingController) {
     this.events = [];
     this.presentLoadingDefault(); 
@@ -33,7 +34,7 @@ export class Events {
   });
 
   this.loading.present();
-  this.loadEvents(this.appType);
+  this.loadEvents();
 }
 
 
@@ -89,31 +90,15 @@ export class Events {
   };
 
    getItems(type: any) {
-    if(this.data !== undefined){
-      this.data.forEach(element => {
-        if(new Date(element.StartDate) >= new Date()){
-          this.events.push(element);
-        }
-      });
-    }
-
-    return this.events;
-  }
-
-  loadEvents(type: any){
     this.events = [];
-    this.eventService.load().then(data => 
-    {   
+    if(this.data !== undefined){
       switch(type){
         case 'All':
-        data.forEach(element => {
-          this.events.push(element);
-        });
+          this.events = this.data;
         break;
         case 'Today':
-        data.forEach(element => {          
+        this.data.forEach(element => {          
            if(new Date(element.StartDate) === new Date()){
-             console.log('Today case');
             this.events.push(element);
           }
         });
@@ -121,16 +106,21 @@ export class Events {
         case 'Upcoming':
         var date = new Date();
         date.setDate(date.getDate() + 7);
-        data.forEach(element => {          
-          
+        this.data.forEach(element => {          
            if(new Date(element.StartDate) <= date){
-             console.log('Today case');
             this.events.push(element);
           }
         });
         break;
       }
-      this.loading.dismiss();
-    });
+    }           
+  }
+
+  loadEvents(){    
+    this.eventService.load().then(data => {   
+    this.data = data;
+    this.events = data;
+    this.loading.dismiss();
+  });
   }
 }
