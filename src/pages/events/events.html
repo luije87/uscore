@@ -11,14 +11,14 @@
         </ion-buttons>
     </ion-navbar>
     <ion-toolbar no-border-top>
-        <ion-segment [(ngModel)]="appType">
-            <ion-segment-button value="All" (ionSelect)="getItems('All')">
+        <ion-segment [(ngModel)]="appType" (ionChange)="getItems(appType)">
+            <ion-segment-button value="All">
                 All
             </ion-segment-button>
-            <ion-segment-button value="Today" (ionSelect)="getItems('Today')">
+            <ion-segment-button value="Today">
                 Today
             </ion-segment-button>
-            <ion-segment-button value="Upcoming" (ionSelect)="getItems('Upcoming')">
+            <ion-segment-button value="Upcoming">
                 Upcoming
             </ion-segment-button>
         </ion-segment>
@@ -27,6 +27,9 @@
 
 
 <ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+        <ion-refresher-content pullingText="Pull to refresh..." refreshingText="Refreshing..."> </ion-refresher-content>
+    </ion-refresher>
     <ion-list>
         <ion-item-sliding *ngFor="let event of events">
             <ion-item>

@@ -55,7 +55,7 @@ export class Events {
   getItems(type: any) {
     this.events = [];
     if (this.data !== undefined) {
-      switch (type) {
+      switch (this.appType) {
         case 'All':
           this.events = this.data;
           break;
@@ -92,5 +92,17 @@ export class Events {
       var dateTime = new Date(event.StartTime);       
       var time = new Date(date.getFullYear(), date.getMonth(), date.getDate(), dateTime.getHours(), dateTime.getMinutes())
       this.calendar.createEventInteractively(event.Title, event.Location, event.Title , time, time);
+  }
+
+  doRefresh(refresher) {
+    this.eventService.load().then(data => {
+      this.data = data;      
+      this.getItems(this.appType);
+      refresher.complete();
+    });
+  }
+
+  doPulling(refresher) {
+    console.log('DOPULLING', refresher.progress);
   }
 }
