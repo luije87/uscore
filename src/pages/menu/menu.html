@@ -13,15 +13,6 @@
 <ion-content>
     <ion-list no-lines>
         <ion-list-header>
-            Sports
-        </ion-list-header>
-        <button ion-item *ngFor="let item of sports" (click)="itemSelected(item)">
-      <ion-icon name="{{item.icon}}" item-left></ion-icon>
-      {{ item.name }}
-    </button>
-    </ion-list>
-    <ion-list no-lines>
-        <ion-list-header>
             News
         </ion-list-header>
         <button ion-item *ngFor="let item of features" (click)="itemSelected(item)">
@@ -29,4 +20,14 @@
       {{ item.name }}
     </button>
     </ion-list>
+    <ion-list no-lines>
+        <ion-list-header>
+            Sports
+        </ion-list-header>
+        <button ion-item *ngFor="let item of sports" (click)="itemSelected(item)">
+      <ion-icon name="{{item.icon}}" item-left></ion-icon>
+      {{ item.name }}
+    </button>
+    </ion-list>
+
 </ion-content>

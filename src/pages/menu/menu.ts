@@ -19,7 +19,7 @@ export class Menu {
   ];
 
   features = [
-    { name: 'News', icon: 'ios-paper-outline', page: 'News' },
+    { name: 'News Feed', icon: 'ios-paper-outline', page: 'HomePage' },
     { name: 'Events', icon: 'ios-calendar-outline', page: 'Events' },
     { name: 'Trending', icon: 'ios-trending-up-outline', page: 'News' },
   ];
