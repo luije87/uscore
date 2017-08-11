@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { EventService } from '../../providers/event-service';
-import { DatePipe } from '@angular/common';
+import { Calendar } from '@ionic-native/calendar';
 
 /**
  * Generated class for the Events page.
@@ -13,32 +13,28 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'page-events',
   templateUrl: 'events.html',
-  providers : [EventService]
+  providers: [EventService, Calendar]
 })
 export class Events {
-    public events: any;
-    public loading:any;
-    public data: any;
-    appType = 'All';
+  public events: any;
+  public loading: any;
+  public data: any;
+  appType = 'All';
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public eventService: EventService, public loadingController: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public eventService: EventService, public loadingController: LoadingController, public calendar: Calendar) {
     this.events = [];
-    this.presentLoadingDefault(); 
-    
+    this.presentLoadingDefault();
   }
 
- presentLoadingDefault() {
+  presentLoadingDefault() {
     this.loading = this.loadingController.create({
-    content: 'Please wait...'
-  });
+      content: 'Please wait...'
+    });
 
-  this.loading.present();
-  this.loadEvents();
-}
-
-
-  
+    this.loading.present();
+    this.loadEvents();
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad Events');
   }
@@ -56,71 +52,45 @@ export class Events {
     }, 500);
   }*/
 
-  apps: any = {
-    'All': [
-      {
-        name: 'Monopoly',
-        price: '$0.99'
-      },
-      {
-        name: 'Angry Birds',
-        price: '$2.99'
-      }
-    ],
-    'Today': [
-      {
-        name: 'Snapchat',
-        price: 'GET'
-      },
-      {
-        name: 'Instagram',
-        price: 'OPEN'
-      }
-    ],
-    'Upcoming': [
-      {
-        name: 'Spotify',
-        price: 'OPEN'
-      },
-      {
-        name: 'Pandora',
-        price: 'GET'
-      }
-    ]
-  };
-
-   getItems(type: any) {
+  getItems(type: any) {
     this.events = [];
-    if(this.data !== undefined){
-      switch(type){
+    if (this.data !== undefined) {
+      switch (type) {
         case 'All':
           this.events = this.data;
-        break;
+          break;
         case 'Today':
-        this.data.forEach(element => {          
-           if(new Date(element.StartDate) === new Date()){
-            this.events.push(element);
-          }
-        });
-        break;
+          this.data.forEach(element => {
+            if (new Date(element.StartDate) === new Date()) {
+              this.events.push(element);
+            }
+          });
+          break;
         case 'Upcoming':
-        var date = new Date();
-        date.setDate(date.getDate() + 7);
-        this.data.forEach(element => {          
-           if(new Date(element.StartDate) <= date){
-            this.events.push(element);
-          }
-        });
-        break;
+          var date = new Date();
+          date.setDate(date.getDate() + 7);
+          this.data.forEach(element => {
+            if (new Date(element.StartDate) <= date) {
+              this.events.push(element);
+            }
+          });
+          break;
       }
-    }           
+    }
   }
 
-  loadEvents(){    
-    this.eventService.load().then(data => {   
-    this.data = data;
-    this.events = data;
-    this.loading.dismiss();
-  });
+  loadEvents() {
+    this.eventService.load().then(data => {
+      this.data = data;
+      this.events = data;
+      this.loading.dismiss();
+    });
+  }
+
+  addEventToCalendar(event : any){
+      var date = new Date(event.StartDate);
+      var dateTime = new Date(event.StartTime);       
+      var time = new Date(date.getFullYear(), date.getMonth(), date.getDate(), dateTime.getHours(), dateTime.getMinutes())
+      this.calendar.createEventInteractively(event.Title, event.Location, event.Title , time, time);
   }
 }

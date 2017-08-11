@@ -28,13 +28,24 @@
 
 <ion-content>
     <ion-list>
-        <button ion-item *ngFor="let event of events">
-            <h6>{{event.Title}}</h6>
-            <p>{{event.StartDate | date : 'MM-dd-yyyy'}}</p>
-            <p>{{event.EndDate | date : 'MM-dd-yyyy'}}</p>
-        </button >
-    </ion-list> 
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+        <ion-item-sliding *ngFor="let event of events">
+            <ion-item>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-2 text-center>
+                            <p style="font-size: 18px; color: black; font-weight: bold;">{{event.StartDate | date : 'dd'}}</p>
+                            <p>{{event.StartDate | date : 'MMM'}}</p>
+                        </ion-col>
+                        <ion-col col-10 style="padding-top: 8px;">
+                            <h3>{{event.Title}}</h3>
+                            <p>{{event.Location}}, {{event.StartTime | date : 'h a'}}</p>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="secondary" (click)="addEventToCalendar(event)"><ion-icon name="ios-calendar-outline"></ion-icon>Add</button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
 </ion-content>
