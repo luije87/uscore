@@ -1,115 +1,49 @@
 <ion-header>
-  <ion-navbar>
-    <ion-buttons start>
-      <button ion-button (click)="menu()">
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button (click)="menu()">
         Menu
       </button>
-    </ion-buttons>
-    <ion-title>Top News</ion-title>
-  </ion-navbar>
+        </ion-buttons>
+        <ion-title>News Feed</ion-title>
+    </ion-navbar>
 </ion-header>
-
 <ion-content class="cards-bg social-cards">
-  <ion-card *ngFor="let item of items">
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="{{item.srcimg}}">
-      </ion-avatar>
-      <h2>{{item.src}}</h2>
-      <p>{{item.date}}</p>
-    </ion-item>
-    <div (click)="view(item)">
-      <img src="{{item.img}}">
-      <ion-card-content>
-        <p>{{item.description}}</p>
-      </ion-card-content>
-    </div>
+    <ion-card *ngFor="let item of items">
+        <ion-item>
+            <ion-avatar item-left>
+                <img src="{{item.srcimg}}">
+            </ion-avatar>
+            <h2>{{item.src}}</h2>
+            <p>{{item.date}}</p>
+        </ion-item>
+        <div (click)="view(item)">
+            <img src="{{item.img}}">
+            <ion-card-content>
+                <p>{{item.description}}</p>
+            </ion-card-content>
+        </div>
 
-    <ion-row>
-      <ion-col col-9>
-        <button ion-button color="primary" clear small icon-left>
+        <ion-row>
+            <ion-col col-9>
+                <button (click)="facebook(item)" ion-button color="primary" clear small icon-left>
              <ion-icon name="logo-facebook"></ion-icon>            
         </button>
-        <button ion-button color="primary" clear small icon-left>
+                <button (click)="twitter(item)" ion-button color="primary" clear small icon-left>
              <ion-icon name="logo-twitter"></ion-icon>            
         </button>
-        <button ion-button color="primary" clear small icon-left>
+                <button (click)="message(item)" ion-button color="primary" clear small icon-left>
         <ion-icon name='text'></ion-icon>        
       </button>
-      </ion-col>
-      <ion-col align-self-center text-center>
-        <ion-note>{{item.timeago}} ago</ion-note>
-      </ion-col>
-    </ion-row>
-  </ion-card>
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="assets/img/sarah-avatar.png.jpeg">
-      </ion-avatar>
-      <h2>Sarah Connor</h2>
-      <p>May 12, 1984</p>
-    </ion-item>
-    <img src="assets/img/advance-card-tmntr.jpg">
-    <ion-card-content>
-      <p>I face the unknown future, with a sense of hope. Because if a machine, a Terminator, can learn the value of human life,
-        maybe we can too.</p>
-    </ion-card-content>
-    <ion-row>
-      <ion-col>
-        <button ion-button color="primary" clear small icon-left>
-        <ion-icon name='thumbs-up'></ion-icon>
-        30 Likes
-      </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button color="primary" clear small icon-left>
-        <ion-icon name='text'></ion-icon>
-        64 Comments
-      </button>
-      </ion-col>
-      <ion-col align-self-center text-center>
-        <ion-note>
-          30yr ago
-        </ion-note>
-      </ion-col>
-    </ion-row>
-  </ion-card>
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="assets/img/ian-avatar.png">
-      </ion-avatar>
-      <h2>Dr. Ian Malcolm</h2>
-      <p>June 28, 1990</p>
-    </ion-item>
-    <img src="assets/img/advance-card-jp.jpg">
-    <ion-card-content>
-      <p>Your scientists were so preoccupied with whether or not they could, that they didn't stop to think if they should.</p>
-    </ion-card-content>
-    <ion-row>
-      <ion-col>
-        <button ion-button color="primary" clear small icon-left>
-        <ion-icon name='thumbs-up'></ion-icon>
-        46 Likes
-      </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button color="primary" clear small icon-left>
-        <ion-icon name='text'></ion-icon>
-        66 Comments
-      </button>
-      </ion-col>
-      <ion-col align-self-center text-center>
-        <ion-note>
-          2d ago
-        </ion-note>
-      </ion-col>
-    </ion-row>
-  </ion-card>
+            </ion-col>
+            <ion-col align-self-center text-center>
+                <ion-note>{{item.timeago}} ago</ion-note>
+            </ion-col>
+        </ion-row>
+    </ion-card>
 </ion-content>
 <style>
-  .social-cards ion-col {
-    padding: 0;
-  }
+    .social-cards ion-col {
+        padding: 0;
+    }
 </style>
