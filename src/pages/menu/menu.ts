@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { NewsService } from '../../providers/news-service';
 import { MenuService } from '../../providers/menu-service';
+import { FavoritesService } from '../../providers/favorites-service';
+
 
 @IonicPage({
   name : 'menu'
@@ -9,11 +11,13 @@ import { MenuService } from '../../providers/menu-service';
 @Component({
   selector: 'page-menu',
   templateUrl: 'menu.html',
-  providers : [NewsService, MenuService],
+  providers : [NewsService, MenuService, FavoritesService],
 })
 export class Menu {
 
   public menu : any;
+  public favorites : any;
+  public EmptyFeed : boolean;
 
   features = [
     { name: 'News Feed', icon: 'ios-paper-outline', page: 'HomePage' },
@@ -23,15 +27,19 @@ export class Menu {
 
   title: any;
   from: any;
-  constructor(public params: NavParams, public navCtrl: NavController, private viewCtrl: ViewController, private menuService : MenuService) {
+
+  constructor(public params: NavParams, public navCtrl: NavController, private viewCtrl: ViewController, private favoritesService : FavoritesService, private menuService : MenuService) {
     this.title = this.params.get('title');
-    this.from = this.params.get('from');
+    this.from = this.params.get('from'); 
+    this.EmptyFeed = this.params.get('emptyfeed');   
+    this.favorites = this.favoritesService.load(); 
+    console.log(this.favorites);   
     this.load();
   }
 
   load(){
     this.menuService.load().then(data => {
-      this.menu = data;
+      this.menu = data;      
     });
   }
 

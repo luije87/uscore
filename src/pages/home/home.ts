@@ -1,36 +1,34 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { MenuService } from '../../providers/menu-service';
 import { NewsService } from '../../providers/news-service';
+import { FavoritesService } from '../../providers/favorites-service';
 
 @IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers : [SocialSharing, MenuService, NewsService]
+  providers : [SocialSharing, NewsService, FavoritesService]
 })
 export class HomePage {
     
   public data : any;
   public menuItem : any;
   public LogoUrl : any;
-  public FavoriteIcon : any;
-  public favorites = [{ Id : '0e597d30-7f09-465c-b638-4820b3b6d5cc'} , { Id : '42cefe43-ca92-4362-bf5e-c622a52038c1' }];
+  public FavoriteIcon : any;  
 
-  constructor(public navCtrl: NavController, private viewCtrl: ViewController, public socialSharing: SocialSharing, public menuService : MenuService, public newsService : NewsService, public navParams : NavParams) {
+  constructor(public navCtrl: NavController, private viewCtrl: ViewController, public socialSharing: SocialSharing, public newsService : NewsService, public navParams : NavParams, private favoritesService : FavoritesService,) {
     this.data = [];
     this.menuItem = this.navParams.get('item');
     if(this.menuItem === undefined){
-      this.menu();
+      this.menu(true);
     }
     else{
       this.checkIfFavorite(this.menuItem);
       this.loadNews();
     }
-
   }
-  
+
   loadNews() {    
       this.newsService.load(this.menuItem).then(data => {
           this.data = data;
@@ -43,7 +41,7 @@ export class HomePage {
 
   favorite(item : any){
     var wasInFavorites = false;
-     this.favorites.forEach(element => {
+     this.favoritesService.load().forEach(element => {
         if(element.Id.toLowerCase() === item.Id){                   
           wasInFavorites = true;          
       }
@@ -59,9 +57,8 @@ export class HomePage {
 
 
   checkIfFavorite(item : any){
-    console.log(item.Id);
     var keepgoing = true;
-    this.favorites.forEach(element => {
+    this.favoritesService.load().forEach(element => {
       if(keepgoing){
         if(element.Id.toLowerCase() === item.Id){
           this.FavoriteIcon = 'ios-star';  
@@ -74,8 +71,8 @@ export class HomePage {
     });
   }
 
-  menu() {
-    this.navCtrl.push('menu', { from: 'home', title: 'News' }, { direction: 'back' });
+  menu(emptyfeed : any) {
+    this.navCtrl.push('menu', { from: 'home', title: 'News', emptyfeed: emptyfeed }, { direction: 'back' });
   }
 
   view(item){

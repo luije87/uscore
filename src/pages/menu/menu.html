@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <ion-title>Menu</ion-title>
-        <ion-buttons end>
+        <ion-buttons end [hidden]="EmptyFeed">
             <button ion-button icon-only (click)="navigate()">
         {{title}}
         <ion-icon name="ios-arrow-forward-outline"></ion-icon>
@@ -11,6 +11,18 @@
 </ion-header>
 
 <ion-content>
+    <ion-list no-lines>
+        <ion-list-header>
+            Favorites
+        </ion-list-header>
+        <button ion-item *ngFor="let item of favorites" (click)="itemSelected(item)">
+            <ion-avatar item-start item-left>
+                <img src="{{item.LogoUrl}}">
+            </ion-avatar>
+            <p>{{item.DisplayName}}</p>
+        </button>
+    </ion-list>
+
     <ion-list no-lines *ngFor="let item of menu">
         <ion-list-header>
             {{item.Name}}
