@@ -60,8 +60,12 @@ export class Events {
           this.events = this.data;
           break;
         case 'Today':
+          var now =new Date();
+          var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
+
           this.data.forEach(element => {
-            if (new Date(element.StartDate) === new Date()) {
+            var from = new Date(element.StartDate);
+            if (today === new Date(from.getFullYear(), from.getMonth(),from.getDate()).valueOf()) {
               this.events.push(element);
             }
           });

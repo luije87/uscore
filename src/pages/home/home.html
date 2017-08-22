@@ -5,25 +5,32 @@
         Menu
       </button>
         </ion-buttons>
-        <ion-title>News Feed</ion-title>
+        <ion-title>
+            <img src="{{LogoUrl}}" class="title-image">
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button ion-button icon-only (click)="favorite(menuItem)">
+              <ion-icon name="{{FavoriteIcon}}"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 <ion-content class="cards-bg social-cards">
-    <ion-card *ngFor="let item of items">
+    <ion-card *ngFor="let item of data.articles">
         <ion-item>
             <ion-avatar item-left>
-                <img src="{{item.srcimg}}">
+                <img src="{{item.logoUrl}}">
             </ion-avatar>
-            <h2>{{item.src}}</h2>
+            <p>{{item.author}}</p>
+            <h6 text-wrap text-justify>{{item.title}}</h6>
             <p>{{item.date}}</p>
         </ion-item>
         <div (click)="view(item)">
-            <img src="{{item.img}}">
-            <ion-card-content>
+            <img src="{{item.urlToImage}}">
+            <ion-card-content text-justify>
                 <p>{{item.description}}</p>
             </ion-card-content>
         </div>
-
         <ion-row>
             <ion-col col-9>
                 <button (click)="facebook(item)" ion-button color="primary" clear small icon-left>
@@ -37,7 +44,7 @@
       </button>
             </ion-col>
             <ion-col align-self-center text-center>
-                <ion-note>{{item.timeago}} ago</ion-note>
+                <ion-note>{{item.publishedAt | date}}</ion-note>
             </ion-col>
         </ion-row>
     </ion-card>

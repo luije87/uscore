@@ -1,22 +1,19 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { NewsService } from '../../providers/news-service';
+import { MenuService } from '../../providers/menu-service';
 
 @IonicPage({
   name : 'menu'
 })
 @Component({
   selector: 'page-menu',
-  templateUrl: 'menu.html'
+  templateUrl: 'menu.html',
+  providers : [NewsService, MenuService],
 })
 export class Menu {
-  
-  sports = [
-    { name: 'Baseball', icon: 'ios-baseball-outline', page: 'HomePage' },
-    { name: 'Football', icon: 'ios-american-football-outline', page: 'HomePage' },
-    { name: 'Softball', icon: 'ios-baseball-outline', page: 'HomePage' },
-    { name: 'Soccer', icon: 'ios-football-outline', page: 'HomePage' },
-    { name: 'Tennis', icon: 'ios-tennisball-outline', page: 'HomePage' },    
-  ];
+
+  public menu : any;
 
   features = [
     { name: 'News Feed', icon: 'ios-paper-outline', page: 'HomePage' },
@@ -26,13 +23,20 @@ export class Menu {
 
   title: any;
   from: any;
-  constructor(public params: NavParams, public navCtrl: NavController, private viewCtrl: ViewController) {
+  constructor(public params: NavParams, public navCtrl: NavController, private viewCtrl: ViewController, private menuService : MenuService) {
     this.title = this.params.get('title');
     this.from = this.params.get('from');
+    this.load();
   }
 
-  itemSelected(item) {    
-    this.navCtrl.push(item.page);
+  load(){
+    this.menuService.load().then(data => {
+      this.menu = data;
+    });
+  }
+
+  itemSelected(item) {       
+    this.navCtrl.push(item.Page, {item});
   }
 
   navigate(item) {

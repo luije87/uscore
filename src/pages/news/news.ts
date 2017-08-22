@@ -14,8 +14,8 @@ export class News {
   public item;    
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, public socialSharing: SocialSharing) {
-      this.item = this.navParams.get('item');
-      console.log(this.item);
+      //this.item = this.navParams.get('item');
+      //console.log(this.item);
   }
 
   ionViewDidLoad() {
