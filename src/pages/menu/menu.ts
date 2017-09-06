@@ -4,7 +4,7 @@ import { NewsService } from '../../providers/news-service';
 import { MenuService } from '../../providers/menu-service';
 import { FavoritesService } from '../../providers/favorites-service';
 import { AlertController } from 'ionic-angular';
-
+import { Storage } from '@ionic/storage';
 
 @IonicPage({
   name: 'menu'
@@ -29,7 +29,7 @@ export class Menu {
   title: any;
   from: any;
 
-  constructor(private alertCtrl: AlertController, public params: NavParams, public navCtrl: NavController, private viewCtrl: ViewController, private favoritesService: FavoritesService, private menuService: MenuService) {
+  constructor(private storage: Storage, private alertCtrl: AlertController, public params: NavParams, public navCtrl: NavController, private viewCtrl: ViewController, private favoritesService: FavoritesService, private menuService: MenuService) {
     this.title = this.params.get('title');
     this.from = this.params.get('from');
     this.EmptyFeed = this.params.get('emptyfeed');
@@ -37,15 +37,16 @@ export class Menu {
     this.loadFavorite();
   }
 
-  loadFavorite() {    
-    this.favoritesService.load().then((val) => {
-      let alert = this.alertCtrl.create({
-        title: 'Low battery1',
-        subTitle: val,
-        buttons: ['Dismiss']
-      });
-      alert.present();
-    });
+  loadFavorite() {
+    this.storage.get('favorites').then(val => {
+      if(val === null){
+        this.storage.set('favorites', new Array());
+      }
+      else{
+        this.favorites = val;
+      }
+    })
+    
   }
 
   load() {

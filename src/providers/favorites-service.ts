@@ -22,17 +22,17 @@ export class FavoritesService {
   }
 
   add(item: any) {
-    this.storage.get('favorites').then((val) => {     
+    /*this.storage.get('favorites').then((val) => {     
       val.push(item);
       this.storage.set('favorites', val);
-    });
+    });*/
   }
 
   remove(item: any) {
-    this.storage.get('favorites').then((val) => {
+    /*this.storage.get('favorites').then((val) => {
       var index = val.indexOf(item);
       val.splice(index, 1);
       this.storage.set('favorites', val);
-    });
+    });*/
   }
 }

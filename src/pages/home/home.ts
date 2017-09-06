@@ -4,6 +4,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { NewsService } from '../../providers/news-service';
 import { FavoritesService } from '../../providers/favorites-service';
 import { AlertController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,7 @@ export class HomePage {
   public LogoUrl: any;
   public FavoriteIcon = 'ios-star-outline';
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, private viewCtrl: ViewController, public socialSharing: SocialSharing, public newsService: NewsService, public navParams: NavParams, private favoritesService: FavoritesService, ) {
+  constructor(private storage: Storage, private alertCtrl: AlertController, public navCtrl: NavController, private viewCtrl: ViewController, public socialSharing: SocialSharing, public newsService: NewsService, public navParams: NavParams, private favoritesService: FavoritesService, ) {
     this.data = [];
     this.menuItem = this.navParams.get('item');
     if (this.menuItem === undefined) {
@@ -41,40 +42,51 @@ export class HomePage {
   }
 
   favorite(item: any) {
-    /*this.favoritesService.load().then((val) => {
+    this.storage.get('favorites').then((val) => {
+      if (val !== null) {
+        var keepgoing = true;
+        val.forEach(element => {
+          if (element.Id.toLowerCase() === item.Id) {
+            keepgoing = false;
+          }
+        });
+
+        if (keepgoing) {
+          val.push(item);
+          this.FavoriteIcon = 'ios-star';
+        }
+        else {
+          var index = val.indexOf(item);
+          val.splice(index, 1);
+          this.FavoriteIcon = 'ios-star-outline';
+        }
+
+        this.storage.set('favorites', val);
+      }
+      else{
+        val = [];
+        val.push(item);
+        this.FavoriteIcon = 'ios-star';
+        this.storage.set('favorites', val);
+      }
+    })
+  }
+
+
+  checkIfFavorite(item: any) {
+    this.storage.get('favorites').then((val) => {
       var keepgoing = true;
-      console.log(val);
       if (val !== null) {
         val.forEach(element => {
           if (keepgoing) {
             if (element.Id.toLowerCase() === item.Id) {
-              this.favoritesService.remove(item);
-              this.FavoriteIcon = 'ios-star-outline';
+              this.FavoriteIcon = 'ios-star';
               keepgoing = false;
             }
           }
         });
       }
-      if (keepgoing) {
-        this.favoritesService.add(item);
-        this.FavoriteIcon = 'ios-star';
-      }
-    });*/
-  }
-
-
-  checkIfFavorite(item: any) {
-    /*this.favoritesService.load().then((val) => {
-      var keepgoing = true;
-      val.forEach(element => {
-        if (keepgoing) {
-          if (element.Id.toLowerCase() === item.Id) {
-            this.FavoriteIcon = 'ios-star';
-            keepgoing = false;
-          }
-        }
-      });
-    });*/
+    });
   }
 
   menu(emptyfeed: any) {
