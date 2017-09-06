@@ -88,7 +88,9 @@ export class HomePage {
       }
     });
   }
-
+  filterItems(event : any){
+    console.log(event);
+  }
   menu(emptyfeed: any) {
     this.navCtrl.push('menu', { from: 'home', title: 'News', emptyfeed: emptyfeed }, { direction: 'back' });
   }
