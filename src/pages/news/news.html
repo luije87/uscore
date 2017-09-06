@@ -1,34 +1,55 @@
-<!--
-  Generated template for the News page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
     <ion-navbar>
-        <ion-title>News</ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="menu(false)">
+        Menu
+      </button>
+        </ion-buttons>
+        <ion-title>
+            <img src="{{LogoUrl}}" class="title-image">
+        </ion-title>
         <ion-buttons end>
-            <button ion-button ion-button icon-only (click)="share()">
-              <ion-icon name="ios-share-outline"></ion-icon>
+            <button ion-button ion-button icon-only (click)="favorite(menuItem)">
+              <ion-icon name="{{FavoriteIcon}}"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
-
 </ion-header>
-
-
-<ion-content padding>
-    <img src="{{item.img}}" alt="" style="padding: 0px;">
-    <div text-right>
-        {{item.src}} / {{item.timeago}}
-    </div>
-    <h3>{{item.description}}</h3>
-
-    <p text-justify>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse interdum aliquam enim, in vehicula ligula vestibulum at. Phasellus magna lacus, tempus maximus ante vitae, posuere iaculis sem. Aenean tincidunt maximus arcu non blandit. Sed faucibus,
-        massa ac pharetra congue, neque sem aliquam purus, eget sollicitudin diam neque non erat. Nullam placerat urna eros, vitae malesuada metus egestas et. Nunc at metus in nisi dignissim consequat. In bibendum gravida nisi vel convallis.Proin aliquam
-        purus molestie nisi pellentesque elementum. Proin cursus condimentum velit ut consectetur. Nunc sapien diam, ultricies vitae lacus vitae, sollicitudin viverra eros. Nam aliquam, velit eu elementum tincidunt, ipsum lorem imperdiet elit, ac lobortis
-        urna mi sit amet magna. Suspendisse imperdiet dignissim nisl sit amet mollis. Fusce vestibulum nisl vel cursus vulputate. Maecenas fermentum et neque non mattis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel est vulputate,
-        sodales est nec, aliquam metus. Cras eget faucibus felis. Vivamus tempus id felis a mollis. Vestibulum bibendum, nisl id porta ultrices, sapien leo commodo ante, quis imperdiet tellus nulla eu libero. Mauris cursus blandit cursus. Sed posuere
-        metus in erat mollis, et vestibulum diam mollis.</p>
+<ion-content class="cards-bg social-cards">
+    <ion-card *ngFor="let item of data.items">
+        <ion-item>
+            <ion-avatar item-left>
+                <img src="{{item.logoUrl}}">
+            </ion-avatar>
+            <p>{{item.author}}</p>
+            <h6 text-wrap text-justify>{{item.title}}</h6>
+        </ion-item>
+        <div (click)="view(item)">
+            <img src="{{item.urlToImage}}">
+            <ion-card-content text-justify>
+                <p *ngIf="item.description !== undefined && item.description.length <= 200">{{item.description}}</p>
+            </ion-card-content>
+        </div>
+        <ion-row>
+            <ion-col col-9>
+                <button (click)="facebook(item)" ion-button color="primary" clear small icon-left>
+             <ion-icon name="logo-facebook"></ion-icon>            
+        </button>
+                <button (click)="twitter(item)" ion-button color="primary" clear small icon-left>
+             <ion-icon name="logo-twitter"></ion-icon>            
+        </button>
+                <button (click)="message(item)" ion-button color="primary" clear small icon-left>
+        <ion-icon name='text'></ion-icon>        
+      </button>
+            </ion-col>
+            <ion-col align-self-center text-center>
+                <ion-note>{{item.pubDate | date}}</ion-note>
+            </ion-col>
+        </ion-row>
+    </ion-card>
 </ion-content>
+<style>
+    .social-cards ion-col {
+        padding: 0;
+    }
+</style>

@@ -5,15 +5,15 @@ page-home {
         border-radius: 50%;
     }
     .card-ios p {
-        color: #fff;
+        color: black;
     }
     .card-ios {
         margin: 12px 12px 12px 12px;
         width: calc(100% - 24px);
         border-radius: 2px;
         font-size: 1.4rem;
-        background: #000;
-        box-shadow: 0 1px 2px #EFF3F4;
+        background: #fff;
+        box-shadow: 5px 5px 5px 0px #B7B7B7;
     }
     .header-ios .toolbar-ios:last-child .toolbar-background-ios {
         border-width: 0 0 0px;

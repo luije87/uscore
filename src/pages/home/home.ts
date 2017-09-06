@@ -3,6 +3,7 @@ import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angul
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { NewsService } from '../../providers/news-service';
 import { FavoritesService } from '../../providers/favorites-service';
+import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ export class HomePage {
   public LogoUrl: any;
   public FavoriteIcon = 'ios-star-outline';
 
-  constructor(public navCtrl: NavController, private viewCtrl: ViewController, public socialSharing: SocialSharing, public newsService: NewsService, public navParams: NavParams, private favoritesService: FavoritesService, ) {
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, private viewCtrl: ViewController, public socialSharing: SocialSharing, public newsService: NewsService, public navParams: NavParams, private favoritesService: FavoritesService, ) {
     this.data = [];
     this.menuItem = this.navParams.get('item');
     if (this.menuItem === undefined) {
@@ -40,28 +41,30 @@ export class HomePage {
   }
 
   favorite(item: any) {
-    this.favoritesService.load().then((val) => {
+    /*this.favoritesService.load().then((val) => {
       var keepgoing = true;
-      val.forEach(element => {
-        if (keepgoing) {
-          if (element.Id.toLowerCase() === item.Id) {
-            this.favoritesService.remove(item);
-            this.FavoriteIcon = 'ios-star-outline';
-            keepgoing = false;
+      console.log(val);
+      if (val !== null) {
+        val.forEach(element => {
+          if (keepgoing) {
+            if (element.Id.toLowerCase() === item.Id) {
+              this.favoritesService.remove(item);
+              this.FavoriteIcon = 'ios-star-outline';
+              keepgoing = false;
+            }
           }
-        }
-      });
+        });
+      }
       if (keepgoing) {
         this.favoritesService.add(item);
         this.FavoriteIcon = 'ios-star';
       }
-    });
+    });*/
   }
 
 
   checkIfFavorite(item: any) {
-    this.favoritesService.load().then((val) => {
-      var scope = val;
+    /*this.favoritesService.load().then((val) => {
       var keepgoing = true;
       val.forEach(element => {
         if (keepgoing) {
@@ -71,7 +74,7 @@ export class HomePage {
           }
         }
       });
-    });
+    });*/
   }
 
   menu(emptyfeed: any) {

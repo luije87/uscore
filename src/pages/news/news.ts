@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { NewsService } from '../../providers/news-service';
+import { FavoritesService } from '../../providers/favorites-service';
 
 @IonicPage({
   name : 'News'
@@ -8,25 +10,93 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 @Component({
   selector: 'page-news',
   templateUrl: 'news.html',
-  providers : [SocialSharing]
+  providers : [SocialSharing, NewsService, FavoritesService]
 })
 export class News {
-  public item;    
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, public socialSharing: SocialSharing) {
-      //this.item = this.navParams.get('item');
-      //console.log(this.item);
+  public data: any;
+  public menuItem: any;
+  public LogoUrl: any;
+  public FavoriteIcon = 'ios-star-outline';
+
+  constructor(public navCtrl: NavController, private viewCtrl: ViewController, public socialSharing: SocialSharing, public newsService: NewsService, public navParams: NavParams, private favoritesService: FavoritesService, ) {
+    this.data = [];
+    this.menuItem = this.navParams.get('item');
+    if (this.menuItem === undefined) {
+      this.menu(true);
+    }
+    else {
+      this.checkIfFavorite(this.menuItem);
+      this.loadNews();
+    }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad News');
+  loadNews() {
+    this.newsService.load(this.menuItem).then(data => {
+      this.data = data;      
+      console.log(this.data.items);
+      this.data.items.forEach(element => {
+        element.logoUrl = this.menuItem.LogoUrl;
+        this.LogoUrl = element.logoUrl;
+      });
+    });
+  }
+
+  favorite(item: any) {
+    this.favoritesService.load().then((val) => {
+      var keepgoing = true;
+      val.forEach(element => {
+        if (keepgoing) {
+          if (element.Id.toLowerCase() === item.Id) {
+            this.favoritesService.remove(item);
+            this.FavoriteIcon = 'ios-star-outline';
+            keepgoing = false;
+          }
+        }
+      });
+      if (keepgoing) {
+        this.favoritesService.add(item);
+        this.FavoriteIcon = 'ios-star';
+      }
+    });
+  }
+
+
+  checkIfFavorite(item: any) {
+    this.favoritesService.load().then((val) => {
+      var scope = val;      
+      var keepgoing = true;
+      val.forEach(element => {
+        if (keepgoing) {
+          if (element.Id.toLowerCase() === item.Id) {
+            this.FavoriteIcon = 'ios-star';
+            keepgoing = false;
+          }
+        }
+      });
+    });
+  }
+
+  menu(emptyfeed: any) {
+    this.navCtrl.push('menu', { from: 'home', title: 'News', emptyfeed: emptyfeed }, { direction: 'back' });
+  }
+
+  view(item) {
+    this.navCtrl.push('News', { item: item }, { direction: 'forward' });
   }
 
   ionViewWillEnter() {
-    this.viewCtrl.showBackButton(true);
+    this.viewCtrl.showBackButton(false);
   }
 
-  share(){
-    this.socialSharing.share(this.item.description, this.item.description, null, "http://www.google.com");
+  facebook(item) {
+    this.socialSharing.shareViaFacebook(item.title, item.urlToImage, item.url)
+  }
+
+  twitter(item) {
+    this.socialSharing.shareViaTwitter(item.title, item.urlToImage, item.url)
+  }
+
+  message(item) {
+    this.socialSharing.shareViaSMS(item.url, null)
   }
 }

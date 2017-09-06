@@ -15,7 +15,6 @@ export class FavoritesService {
   public favorites = [];
 
   constructor(public http: Http, private storage: Storage) {
-    console.log('Hello FavoritesService Provider');
   }
 
   load(): Promise<any> {
@@ -23,14 +22,13 @@ export class FavoritesService {
   }
 
   add(item: any) {
-    this.storage.get('favorites').then((val) => {
+    this.storage.get('favorites').then((val) => {     
       val.push(item);
       this.storage.set('favorites', val);
     });
   }
 
   remove(item: any) {
-    console.log(item);
     this.storage.get('favorites').then((val) => {
       var index = val.indexOf(item);
       val.splice(index, 1);

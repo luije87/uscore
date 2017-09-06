@@ -1,3 +1,24 @@
 page-news {
-
+    .title-image {
+        margin-top: 8px;
+        height: 27px;
+        border-radius: 50%;
+    }
+    p>img {
+        height: 180px !important;
+    }
+    .card-ios p {
+        color: #fff;
+    }
+    .card-ios {
+        margin: 12px 12px 12px 12px;
+        width: calc(100% - 24px);
+        border-radius: 2px;
+        font-size: 1.4rem;
+        background: #7DCADA;
+        box-shadow: 0 1px 2px #EFF3F4;
+    }
+    .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+        border-width: 0 0 0px;
+    }
 }

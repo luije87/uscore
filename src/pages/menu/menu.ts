@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { NewsService } from '../../providers/news-service';
 import { MenuService } from '../../providers/menu-service';
 import { FavoritesService } from '../../providers/favorites-service';
+import { AlertController } from 'ionic-angular';
+
 
 @IonicPage({
   name: 'menu'
@@ -27,18 +29,22 @@ export class Menu {
   title: any;
   from: any;
 
-  constructor(public params: NavParams, public navCtrl: NavController, private viewCtrl: ViewController, private favoritesService: FavoritesService, private menuService: MenuService) {
+  constructor(private alertCtrl: AlertController, public params: NavParams, public navCtrl: NavController, private viewCtrl: ViewController, private favoritesService: FavoritesService, private menuService: MenuService) {
     this.title = this.params.get('title');
     this.from = this.params.get('from');
     this.EmptyFeed = this.params.get('emptyfeed');
-    this.loadFavorite();
     this.load();
+    this.loadFavorite();
   }
 
-  loadFavorite() {
-    this.favorites = [];
+  loadFavorite() {    
     this.favoritesService.load().then((val) => {
-      this.favorites = val;
+      let alert = this.alertCtrl.create({
+        title: 'Low battery1',
+        subTitle: val,
+        buttons: ['Dismiss']
+      });
+      alert.present();
     });
   }
 

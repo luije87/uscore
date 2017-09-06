@@ -15,14 +15,23 @@ $font-path: "../assets/fonts";
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: ( primary: #F39C11, secondary: #32db64, danger: #f53d3d, light: #f4f4f4, dark: #222);
-$background-color: #000;
+$colors: ( primary: #EF823F, secondary: #32db64, danger: #f53d3d, light: #f4f4f4, dark: #222);
+
+/*$background-color: #000;
 $toolbar-background: #000;
 $list-ios-header-color: #EFF3F4;
 $list-text-color: #EFF3F4;
 $item-ios-paragraph-text-color: #BEC3C7;
 $toolbar-ios-button-color: #F39C11;
-$button-ios-background-color: #F39C11;
+$button-ios-background-color: #F39C11;*/
+
+$background-color: #FFFFFF;
+$toolbar-background: #FFFFFF;
+$list-ios-header-color: #0E4E7E;
+$list-text-color: black;
+$item-ios-paragraph-text-color: #0E4E7E;
+$toolbar-ios-button-color: #EF823F;
+$button-ios-background-color: #EF823F;
 //$toolbar-ios-title-text-color: #D25400;
 // App iOS Variables
 // --------------------------------------------------
