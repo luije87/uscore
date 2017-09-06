@@ -18,7 +18,7 @@ export class MenuService {
 
   load(){
     return new Promise(resolve => {
-      this.http.get("http://localhost:50407/api/values")
+      this.http.get("http://app.10newsfeed.com/main/api/values")
             .map(res => res.json())
             .subscribe(data => {
               resolve(data);         

@@ -4,20 +4,19 @@ import { NewsService } from '../../providers/news-service';
 import { MenuService } from '../../providers/menu-service';
 import { FavoritesService } from '../../providers/favorites-service';
 
-
 @IonicPage({
-  name : 'menu'
+  name: 'menu'
 })
 @Component({
   selector: 'page-menu',
   templateUrl: 'menu.html',
-  providers : [NewsService, MenuService, FavoritesService],
+  providers: [NewsService, MenuService, FavoritesService],
 })
 export class Menu {
 
-  public menu : any;
-  public favorites : any;
-  public EmptyFeed : boolean;
+  public menu: any;
+  public favorites: any;
+  public EmptyFeed: boolean;
 
   features = [
     { name: 'News Feed', icon: 'ios-paper-outline', page: 'HomePage' },
@@ -28,23 +27,29 @@ export class Menu {
   title: any;
   from: any;
 
-  constructor(public params: NavParams, public navCtrl: NavController, private viewCtrl: ViewController, private favoritesService : FavoritesService, private menuService : MenuService) {
+  constructor(public params: NavParams, public navCtrl: NavController, private viewCtrl: ViewController, private favoritesService: FavoritesService, private menuService: MenuService) {
     this.title = this.params.get('title');
-    this.from = this.params.get('from'); 
-    this.EmptyFeed = this.params.get('emptyfeed');   
-    this.favorites = this.favoritesService.load(); 
-    console.log(this.favorites);   
+    this.from = this.params.get('from');
+    this.EmptyFeed = this.params.get('emptyfeed');
+    this.loadFavorite();
     this.load();
   }
 
-  load(){
-    this.menuService.load().then(data => {
-      this.menu = data;      
+  loadFavorite() {
+    this.favorites = [];
+    this.favoritesService.load().then((val) => {
+      this.favorites = val;
     });
   }
 
-  itemSelected(item) {       
-    this.navCtrl.push(item.Page, {item});
+  load() {
+    this.menuService.load().then(data => {
+      this.menu = data;
+    });
+  }
+
+  itemSelected(item) {
+    this.navCtrl.push(item.Page, { item });
   }
 
   navigate(item) {

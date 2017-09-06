@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the FavoritesService provider.
@@ -11,15 +12,29 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class FavoritesService {
 
-  public favorites = [
-    { Id : '0e597d30-7f09-465c-b638-4820b3b6d5cc', DisplayName : "ESPN", LogoUrl : "https://icons.better-idea.org/icon?url=http://espn.go.com&size=70..120..200", Source : "https://newsapi.org/v1/articles?source=espn&sortBy=top&apiKey=e797302214f646e49fc51812820707dd", Page : "HomePage" } ,    
-  ];
+  public favorites = [];
 
-  constructor(public http: Http) {
+  constructor(public http: Http, private storage: Storage) {
     console.log('Hello FavoritesService Provider');
   }
 
-  load(){
-    return this.favorites;
+  load(): Promise<any> {
+    return this.storage.get('favorites');
+  }
+
+  add(item: any) {
+    this.storage.get('favorites').then((val) => {
+      val.push(item);
+      this.storage.set('favorites', val);
+    });
+  }
+
+  remove(item: any) {
+    console.log(item);
+    this.storage.get('favorites').then((val) => {
+      var index = val.indexOf(item);
+      val.splice(index, 1);
+      this.storage.set('favorites', val);
+    });
   }
 }
