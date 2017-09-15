@@ -1,6 +1,6 @@
 {
   "name": "thescore",
   "app_id": "b506fb67",
-  "v2": true,
-  "typescript": true
+  "integrations": {},
+  "type": "ionic-angular"
 }
